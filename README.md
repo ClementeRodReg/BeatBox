@@ -2,6 +2,6 @@
 Proyecto de fin de curso
 <br>
 <br>
-Ander de la Iglesia Perex
-Andoni Fernández
+Ander de la Iglesia Perex<br>
+Andoni Fernández<br>
 Clemente Rodriguez
