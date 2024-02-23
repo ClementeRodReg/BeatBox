@@ -15,7 +15,7 @@ Proyecto de fin de curso
   
   <tr>
     <td>Ander de la Iglesia Perex</td>
-    <td>CEO</td>
+    <td>FEO</td>
   </tr>
   
   <tr>
