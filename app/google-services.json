@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "38549828684",
+    "project_id": "beatbox-ee75e",
+    "storage_bucket": "beatbox-ee75e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38549828684:android:ff233d28026c4f3748f0e9",
+        "android_client_info": {
+          "package_name": "com.example.beatbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ3nbVZonNffSYW2kZt4RzrI_J-TVQS-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
