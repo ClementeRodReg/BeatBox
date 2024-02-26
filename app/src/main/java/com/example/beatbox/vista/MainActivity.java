@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 if(correo.isEmpty() || contra.isEmpty() || confirmarContra.isEmpty()){
                     Toast.makeText(MainActivity.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(contra == confirmarContra){
+                    if(contra.equals(confirmarContra)){
                         registrar(correo, contra);
                     } else{
                         Toast.makeText(MainActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 if(correo.isEmpty() || contra.isEmpty() || confirmarContra.isEmpty()){
                     Toast.makeText(MainActivity.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(contra == confirmarContra){
+                    if(contra.equals(confirmarContra)){
                         logIn(correo, contra);
                     } else{
                         Toast.makeText(MainActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
