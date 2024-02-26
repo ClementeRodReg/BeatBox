@@ -35,13 +35,13 @@
     <ScrollView
         android:id="@+id/scroll_Canciones"
         android:layout_width="0dp"
-        android:layout_height="562dp"
+        android:layout_height="520dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/scroll_Albumes"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.526">
+        app:layout_constraintVertical_bias="0.355">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,12 +106,12 @@
         android:id="@+id/id_audioBarra_G"
         android:layout_width="234dp"
         android:layout_height="17dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:progressBackgroundTint="#00BCD4"
         android:progressTint="@color/white"
         android:thumbTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintHorizontal_bias="0.779"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scroll_Canciones" />
 
@@ -121,10 +121,10 @@
         android:layout_height="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_audioBarra_G"
-        app:layout_constraintVertical_bias="0.705"
+        app:layout_constraintVertical_bias="0.469"
         app:srcCompat="@drawable/play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
