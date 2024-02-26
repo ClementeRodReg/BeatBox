@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     guardarDatos();
-                    Intent intent = new Intent(MainActivity.this, ListaAlbumes.class);
+                    Intent intent = new Intent(MainActivity.this, PantallaPrincipal.class);
                     startActivity(intent);
                 } else{
                     Toast.makeText(MainActivity.this, "Correo o contrasenya incorrecta", Toast.LENGTH_LONG).show();
