@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
                     if(contra.equals(confirmarContra)){
-                        registrar(correo, contra);
+                        if(contra.length() >= 6){
+                            registrar(correo, contra);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Las contraseñas deben tener 6 o más caracteres", Toast.LENGTH_SHORT).show();
+                        }
                     } else{
                         Toast.makeText(MainActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     }
@@ -80,9 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
     public void limpiarCampos(){
         txtCorreo.setText("");
         txtContra.setText("");
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, PantallaPrincipal.class);
                     startActivity(intent);
                 } else{
-                    Toast.makeText(MainActivity.this, "Correo o contrasenya incorrecta", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Correo o contraseña incorrecta", Toast.LENGTH_LONG).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -141,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
         editor.commit();
     }
+
     public void cargarDatos() {
         SharedPreferences sharedPreferences = getSharedPreferences("USERS", Context.MODE_PRIVATE);
 
