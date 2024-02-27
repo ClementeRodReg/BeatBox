@@ -2,13 +2,14 @@
     <string name="app_name">BeatBox</string>
 
     <string name="btnRegistrar">Registrar</string>
-
     <string name="btnLonIn">Iniciar sesion</string>
 
     <string name="txtCorreo">Correo</string>
-
     <string name="txtContra">Pass</string>
-
     <string name="txtConfirmarContra">Confirmar Pass</string>
 
+    <string name="btnDescargar">Descargar</string>
+    <string name="btnAtras">Atras</string>
+
+    <string name="txtAlbumDe">Album de</string>
 </resources>
