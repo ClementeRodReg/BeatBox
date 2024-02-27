@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout
-    tools:context=".vista.MainActivity"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".vista.MainActivity">
 
     <EditText
         android:id="@+id/txtConfirmarContra"
@@ -14,6 +14,8 @@
         android:ems="10"
         android:hint="@string/txtConfirmarContra"
         android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
@@ -28,6 +30,8 @@
         android:ems="10"
         android:hint="@string/txtCorreo"
         android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.365"
@@ -39,6 +43,7 @@
         android:id="@+id/btnRegistrar"
         android:layout_width="230dp"
         android:layout_height="74dp"
+        android:backgroundTint="@color/boton"
         android:text="@string/btnRegistrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +56,7 @@
         android:id="@+id/btnLonIn"
         android:layout_width="230dp"
         android:layout_height="69dp"
+        android:backgroundTint="@color/boton"
         android:text="@string/btnLonIn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +72,8 @@
         android:ems="10"
         android:hint="@string/txtContra"
         android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.402"
