@@ -52,7 +52,6 @@ public class Metodos {
             }
         }
 
-
         return albumes;
     }
 
