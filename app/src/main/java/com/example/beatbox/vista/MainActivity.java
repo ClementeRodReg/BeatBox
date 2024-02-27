@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.beatbox.R;
+import com.example.beatbox.funcion.Metodos;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -25,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
     Button btnRegistrar, btnLonIn;
     FirebaseFirestore mfirestore;
     FirebaseAuth mAuth;
+    Metodos metodos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        metodos = new Metodos();
         mAuth = FirebaseAuth.getInstance();
         mfirestore = FirebaseFirestore.getInstance();
 
@@ -50,16 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 String contra = txtContra.getText().toString().trim();
                 String confirmarContra = txtConfirmarContra.getText().toString().trim();
 
-                if(correo.isEmpty() || contra.isEmpty() || confirmarContra.isEmpty()){
+                if (correo.isEmpty() || contra.isEmpty() || confirmarContra.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(contra.equals(confirmarContra)){
-                        if(contra.length() >= 6){
+                    if (contra.equals(confirmarContra)) {
+                        if (contra.length() >= 6) {
                             registrar(correo, contra);
                         } else {
                             Toast.makeText(MainActivity.this, "Las contraseñas deben tener 6 o más caracteres", Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         Toast.makeText(MainActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -73,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 String contra = txtContra.getText().toString().trim();
                 String confirmarContra = txtConfirmarContra.getText().toString().trim();
 
-                if(correo.isEmpty() || contra.isEmpty() || confirmarContra.isEmpty()){
+                if (correo.isEmpty() || contra.isEmpty() || confirmarContra.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(contra.equals(confirmarContra)){
+                    if (contra.equals(confirmarContra)) {
+                        metodos.carpetaUsuario(correo.split("\\.")[0]);
                         logIn(correo, contra);
-                    } else{
+                    } else {
                         Toast.makeText(MainActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -86,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void limpiarCampos(){
+    public void limpiarCampos() {
         txtCorreo.setText("");
         txtContra.setText("");
         txtConfirmarContra.setText("");
     }
 
-    public void registrar(String correo, String contra){
+    public void registrar(String correo, String contra) {
         mAuth.createUserWithEmailAndPassword(correo, contra).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -106,15 +110,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void logIn(String correo, String contra){
+    public void logIn(String correo, String contra) {
         mAuth.signInWithEmailAndPassword(correo, contra).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     guardarDatos();
                     Intent intent = new Intent(MainActivity.this, PantallaPrincipal.class);
+                    intent.putExtra("usuario", correo.split("\\.")[0]);
                     startActivity(intent);
-                } else{
+                } else {
                     Toast.makeText(MainActivity.this, "Correo o contraseña incorrecta", Toast.LENGTH_LONG).show();
                 }
             }
