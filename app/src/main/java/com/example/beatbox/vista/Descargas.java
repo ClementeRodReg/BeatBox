@@ -1,13 +1,14 @@
 package com.example.beatbox.vista;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,13 +21,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
 public class Descargas extends AppCompatActivity {
 
-    Button btnAtras;
+    Button btnAtras, btnDescargar;
     ListView listAlbum;
     private ArrayList<String> canciones;
     StorageReference storageRef;
@@ -40,9 +40,12 @@ public class Descargas extends AppCompatActivity {
         canciones = new ArrayList<>();
 
         btnAtras = findViewById(R.id.btnAtras);
+        btnDescargar = findViewById(R.id.btnDescargar);
         listAlbum = findViewById(R.id.listAlbum);
 
-        mostrarCanciones(canciones);
+        StorageReference ref = storageRef.child("/Prueba/Rock");
+
+        mostrarCanciones(canciones, ref);
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,10 +54,17 @@ public class Descargas extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnDescargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                descargar(ref);
+            }
+        });
     }
 
-    public void mostrarCanciones(ArrayList<String> canciones){
-        StorageReference ref = storageRef.child("/Prueba/Rock");
+    public void mostrarCanciones(ArrayList<String> canciones, StorageReference ref){
+
         ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
@@ -65,7 +75,6 @@ public class Descargas extends AppCompatActivity {
                 ArrayAdapter <String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, canciones);
 
                 listAlbum.setAdapter(adapter);
-                listAlbum.setBackgroundColor(Color.WHITE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -74,7 +83,6 @@ public class Descargas extends AppCompatActivity {
             }
         });
     }
-
 
     public String cambiarFormato(String cancion){
 
@@ -87,5 +95,54 @@ public class Descargas extends AppCompatActivity {
         String resultado = String.join(" ", partes);
 
         return resultado;
+    }
+
+    public void descargar(StorageReference ref){
+        ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for(StorageReference item : listResult.getItems()){
+                    descargarArchivo(item.getName(), ref);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Ha ocurrido un error", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void descargarArchivo(String itemName, StorageReference ref) {
+
+        ref = storageRef.child("/Prueba/Rock/"+itemName);
+
+        String quitarPunto[] = itemName.split("\\.");
+        String cancionSinPunto = quitarPunto[0];
+        String tipoArchivo = quitarPunto[0];
+        String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String url = uri.toString();
+                downloadFile(Descargas.this, cancionSinPunto, tipoArchivo, directoryPath, url);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Error al descargar", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url){
+        DownloadManager downloadmanager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+
+        downloadmanager.enqueue(request);
     }
 }
