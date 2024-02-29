@@ -43,7 +43,7 @@ public class Metodos {
                 File Dir = new File(files[i].getAbsolutePath());
                 File[] filesInDir = Dir.listFiles();
                 for (int num = 0; num < filesInDir.length; num++) {
-                    Cancion cancion = new Cancion(filesInDir[num].getAbsolutePath());
+                    Cancion cancion = new Cancion(filesInDir[num].getAbsolutePath(), filesInDir[num].getName());
                     canciones.add(cancion);
                 }
 

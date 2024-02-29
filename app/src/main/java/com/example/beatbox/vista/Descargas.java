@@ -18,10 +18,14 @@ import android.widget.Toast;
 import com.example.beatbox.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Descargas extends AppCompatActivity {
@@ -30,12 +34,21 @@ public class Descargas extends AppCompatActivity {
     ListView listAlbum;
     private ArrayList<String> canciones;
     StorageReference storageRef;
+    String usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_descargas);
+        Bundle bundle =  getIntent().getExtras();
+        usuario=bundle.getString("usuario");
 
         storageRef = FirebaseStorage.getInstance().getReference();
+
+        FirebaseApp.initializeApp(/*context=*/ this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(
+                PlayIntegrityAppCheckProviderFactory.getInstance());
+
 
         canciones = new ArrayList<>();
 
@@ -63,16 +76,16 @@ public class Descargas extends AppCompatActivity {
         });
     }
 
-    public void mostrarCanciones(ArrayList<String> canciones, StorageReference ref){
+    public void mostrarCanciones(ArrayList<String> canciones, StorageReference ref) {
 
         ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
-                for(StorageReference item : listResult.getItems()){
+                for (StorageReference item : listResult.getItems()) {
                     String cancion = cambiarFormato(item.getName());
                     canciones.add(cancion);
                 }
-                ArrayAdapter <String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, canciones);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, canciones);
 
                 listAlbum.setAdapter(adapter);
             }
@@ -84,7 +97,7 @@ public class Descargas extends AppCompatActivity {
         });
     }
 
-    public String cambiarFormato(String cancion){
+    public String cambiarFormato(String cancion) {
 
         String quitarPunto[] = cancion.split("\\.");
         String cancionSinPunto = quitarPunto[0];
@@ -97,11 +110,11 @@ public class Descargas extends AppCompatActivity {
         return resultado;
     }
 
-    public void descargar(StorageReference ref){
+    public void descargar(StorageReference ref) {
         ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
-                for(StorageReference item : listResult.getItems()){
+                for (StorageReference item : listResult.getItems()) {
                     descargarArchivo(item.getName(), ref);
                 }
             }
@@ -115,12 +128,23 @@ public class Descargas extends AppCompatActivity {
 
     private void descargarArchivo(String itemName, StorageReference ref) {
 
-        ref = storageRef.child("/Prueba/Rock/"+itemName);
+        ref = storageRef.child("/Prueba/Rock/" + itemName);
 
         String quitarPunto[] = itemName.split("\\.");
         String cancionSinPunto = quitarPunto[0];
         String tipoArchivo = quitarPunto[0];
-        String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
+
+        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" + usuario).getAbsolutePath());
+        String nAlbum = "";
+        File[] files = path.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isDirectory()) {
+                nAlbum=files[i].getName();
+            }
+        }
+
+
+        String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" +usuario+"/"+nAlbum).getAbsolutePath();
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -135,7 +159,7 @@ public class Descargas extends AppCompatActivity {
         });
     }
 
-    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url){
+    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
         DownloadManager downloadmanager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
