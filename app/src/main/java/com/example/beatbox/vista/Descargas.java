@@ -35,13 +35,17 @@ public class Descargas extends AppCompatActivity {
     ListView listAlbum;
     private ArrayList<String> canciones;
     StorageReference storageRef;
-    String usuario;
+    String usuario, nAlbum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_descargas);
         Bundle bundle =  getIntent().getExtras();
         usuario=bundle.getString("usuario");
+        nAlbum=bundle.getString("nAlbum");
+
+        nAlbum = "Rock";
+        usuario = "Prueba";
 
         storageRef = FirebaseStorage.getInstance().getReference();
 
@@ -59,7 +63,7 @@ public class Descargas extends AppCompatActivity {
         btnDescargar = findViewById(R.id.btnDescargar);
         listAlbum = findViewById(R.id.listAlbum);
 
-        StorageReference ref = storageRef.child("/Prueba/Rock");
+        StorageReference ref = storageRef.child("/" + usuario + "/"+ nAlbum + "/");
 
         mostrarCanciones(canciones, ref);
 
@@ -131,28 +135,22 @@ public class Descargas extends AppCompatActivity {
 
     private void descargarArchivo(String itemName, StorageReference ref) {
 
-        ref = storageRef.child("/Prueba/Rock/" + itemName);
-
-        String quitarPunto[] = itemName.split("\\.");
-        String cancionSinPunto = quitarPunto[0];
-        String tipoArchivo = quitarPunto[0];
-
+        ref = storageRef.child("/" + usuario + "/"+ nAlbum + "/" + itemName);
+        /*
         File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" + usuario).getAbsolutePath());
-        String nAlbum = "";
         File[] files = path.listFiles();
         for (int i = 0; i < files.length; i++) {
             if (files[i].isDirectory()) {
                 nAlbum=files[i].getName();
             }
         }
-
-
-        String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" +usuario+"/"+nAlbum).getAbsolutePath();
+        */
+        String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" + usuario + "/" + nAlbum).getAbsolutePath();
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 String url = uri.toString();
-                downloadFile(Descargas.this, cancionSinPunto, tipoArchivo, directoryPath, url);
+                downloadFile(Descargas.this, itemName, directoryPath, url);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -162,13 +160,13 @@ public class Descargas extends AppCompatActivity {
         });
     }
 
-    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
+    public void downloadFile(Context context, String itemName, String destinationDirectory, String url) {
         DownloadManager downloadmanager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory, itemName);
 
         downloadmanager.enqueue(request);
     }
