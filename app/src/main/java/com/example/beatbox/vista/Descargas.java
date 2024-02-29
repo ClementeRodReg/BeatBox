@@ -19,6 +19,7 @@ import com.example.beatbox.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.appcheck.AppCheckToken;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,6 +50,8 @@ public class Descargas extends AppCompatActivity {
         firebaseAppCheck.installAppCheckProviderFactory(
                 PlayIntegrityAppCheckProviderFactory.getInstance());
 
+        firebaseAppCheck.getAppCheckToken(true);
+        //firebaseAppCheck.getToken(true);
 
         canciones = new ArrayList<>();
 
