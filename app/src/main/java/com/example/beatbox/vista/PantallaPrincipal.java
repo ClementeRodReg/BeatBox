@@ -34,9 +34,9 @@ public class PantallaPrincipal extends AppCompatActivity {
     ImageView imageAlbumes;
     ImageView imageCanciones;
     Button btn_Buscar;
-    TextView txt_buscador;
+    EditText txt_buscador;
     LinearLayout linearLayoutContenedor;
-    private static final int PERMISSION_REQUEST_STORAGE = 100;
+    String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,15 @@ public class PantallaPrincipal extends AppCompatActivity {
         btn_Buscar = findViewById(R.id.btn_Buscar);
         txt_buscador = findViewById(R.id.txt_buscador);
         linearLayoutContenedor = findViewById(R.id.linearLayoutAlbum);
+        Bundle bundle =  getIntent().getExtras();
+        usuario=bundle.getString("usuario");
 
         btn_Buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PantallaPrincipal.this, ListaAlbumes.class);
+                intent.putExtra("usuario", usuario );
+                intent.putExtra("buscar", txt_buscador.getText());
                 startActivity(intent);
             }
         });
@@ -91,49 +95,44 @@ public class PantallaPrincipal extends AppCompatActivity {
         imageCanciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 // Lista de nombres de canciones
                 final ArrayList<String> canciones = new ArrayList<>();
 
-                // Acceder al directorio de música y buscar archivos .mp3
-                File musicDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-                File[] files = musicDirectory.listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        if (file.isFile() && file.getName().toLowerCase().endsWith(".mp3")) {
+                // Ruta del directorio de música específico
+                File musicDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)+ "/" +"admin@gmail").getAbsoluteFile();
+
+                // Verificar si el directorio existe y es una carpeta
+                if (musicDirectory.exists() && musicDirectory.isDirectory()) {
+                    // Obtener todos los archivos .mp3 en el directorio
+                    File[] files = musicDirectory.listFiles();
+                    if (files != null) {
+                        for (File file : files) {
                             canciones.add(file.getName());
+
                         }
                     }
+
+                    // Mostrar un diálogo con la lista de canciones para que el usuario elija una
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PantallaPrincipal.this);
+                    builder.setTitle("Selecciona una canción");
+                    builder.setItems(canciones.toArray(new String[0]), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Obtener el nombre de la canción seleccionada
+                            String selectedSong = canciones.get(which);
+
+                            // Mostrar el nombre de la canción seleccionada
+                            Toast.makeText(PantallaPrincipal.this, "Canción seleccionada: " + selectedSong, Toast.LENGTH_SHORT).show();
+
+                            // Aquí puedes hacer algo con la canción seleccionada, como reproducirla
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", null);
+                    builder.show();
+                } else {
+                    // Mostrar un mensaje si no se encuentra el directorio
+                    Toast.makeText(PantallaPrincipal.this, "La carpeta 'admin@gmail.com' no existe en el directorio de música", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("DEBUG", "Total de archivos en el directorio de música: " + files.length);
-                // Mostrar un diálogo con la lista de canciones para que el usuario elija una
-                AlertDialog.Builder builder = new AlertDialog.Builder(PantallaPrincipal.this);
-                builder.setTitle("Selecciona una canción");
-                builder.setItems(canciones.toArray(new String[0]), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Obtener el nombre de la canción seleccionada
-                        String selectedSong = canciones.get(which);
-
-                        // Mostrar el nombre de la canción seleccionada
-                        Toast.makeText(PantallaPrincipal.this, "Canción seleccionada: " + selectedSong, Toast.LENGTH_SHORT).show();
-
-                        // Crear un nuevo TextView con el nombre de la canción seleccionada
-                        TextView songTextView = new TextView(PantallaPrincipal.this);
-                        songTextView.setText(selectedSong);
-                        songTextView.setTextColor(Color.WHITE);
-                        songTextView.setTextSize(18);
-
-                        // Obtener el LinearLayout
-                        LinearLayout linearLayoutCanciones = findViewById(R.id.linearLayoutCanciones);
-
-                        // Agregar el TextView al LinearLayout
-                        linearLayoutCanciones.addView(songTextView, 0);
-                    }
-                });
-                builder.setNegativeButton("Cancelar", null);
-                builder.show();
             }
         });
 

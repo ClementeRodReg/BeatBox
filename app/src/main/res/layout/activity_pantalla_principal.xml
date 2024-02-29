@@ -7,30 +7,17 @@
     android:background="@color/grey"
     tools:context=".vista.PantallaPrincipal">
 
-    <TextView
-        android:id="@+id/txt_buscador"
-        android:layout_width="189dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="24dp"
-        android:hint="Buscador"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btn_Buscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
         android:backgroundTint="@color/boton"
         android:text="Buscar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toEndOf="@+id/txt_buscador"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
     <ScrollView
         android:id="@+id/scroll_Canciones"
@@ -62,8 +49,10 @@
         android:id="@+id/scroll_Albumes"
         android:layout_width="107dp"
         android:layout_height="655dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/linearLayoutAlbum"
@@ -100,10 +89,12 @@
         android:progressBackgroundTint="#00BCD4"
         android:progressTint="@color/white"
         android:thumbTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.779"
+        app:layout_constraintHorizontal_bias="0.824"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_Canciones" />
+        app:layout_constraintTop_toBottomOf="@+id/scroll_Canciones"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imagePlay"
@@ -116,5 +107,21 @@
         app:layout_constraintTop_toBottomOf="@+id/id_audioBarra_G"
         app:layout_constraintVertical_bias="0.469"
         app:srcCompat="@drawable/play" />
+
+    <EditText
+        android:id="@+id/txt_buscador"
+        android:layout_width="188dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Buscador"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
