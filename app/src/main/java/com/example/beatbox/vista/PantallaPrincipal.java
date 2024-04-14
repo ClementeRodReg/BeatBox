@@ -55,7 +55,7 @@ public class PantallaPrincipal extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PantallaPrincipal.this, ListaAlbumes.class);
                 intent.putExtra("usuario", usuario );
-                intent.putExtra("buscar", txt_buscador.getText());
+                intent.putExtra("busqueda", txt_buscador.getText().toString());
                 startActivity(intent);
             }
         });

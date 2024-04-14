@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.appcheck.AppCheckToken;
+import com.google.firebase.appcheck.AppCheckTokenResult;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,8 +55,15 @@ public class Descargas extends AppCompatActivity {
         firebaseAppCheck.installAppCheckProviderFactory(
                 PlayIntegrityAppCheckProviderFactory.getInstance());
 
-        firebaseAppCheck.getAppCheckToken(true);
-        //firebaseAppCheck.getToken(true);
+
+        firebaseAppCheck.getToken(true).addOnSuccessListener(new OnSuccessListener<AppCheckTokenResult>()
+        {
+            @Override
+            public void onSuccess(AppCheckTokenResult token)
+            {
+                token.getToken();
+            }
+        });
 
         canciones = new ArrayList<>();
 
@@ -136,6 +144,7 @@ public class Descargas extends AppCompatActivity {
     private void descargarArchivo(String itemName, StorageReference ref) {
 
         ref = storageRef.child("/" + usuario + "/"+ nAlbum + "/" + itemName);
+
         /*
         File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" + usuario).getAbsolutePath());
         File[] files = path.listFiles();
@@ -145,6 +154,7 @@ public class Descargas extends AppCompatActivity {
             }
         }
         */
+
         String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + "/" + usuario + "/" + nAlbum).getAbsolutePath();
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

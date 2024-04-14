@@ -18,24 +18,18 @@
         app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintVertical_bias="0.128" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="407dp"
-        android:layout_height="485dp"
-        android:background="@color/boton"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ListView
+        android:id="@+id/listAlbum"
+        android:layout_width="405dp"
+        android:layout_height="486dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_atras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.678">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintVertical_bias="0.883" />
 
     <EditText
         android:id="@+id/barraDeBusqueda"
@@ -48,7 +42,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toTopOf="@+id/listAlbum"
         app:layout_constraintEnd_toStartOf="@+id/btn_buscarListaAlbumes"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +53,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Albumes"
+        android:text="Canciones"
         android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
