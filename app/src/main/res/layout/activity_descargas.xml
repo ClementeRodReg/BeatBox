@@ -29,7 +29,7 @@
                 android:textSize="34sp" />
 
             <ListView
-                android:id="@+id/listAlbum"
+                android:id="@+id/listCanciones"
                 android:layout_width="match_parent"
                 android:layout_height="508dp"
                 android:layout_marginStart="10dp"

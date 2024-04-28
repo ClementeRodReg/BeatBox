@@ -25,9 +25,6 @@
             android:name=".vista.PantallaPrincipal"
             android:exported="false" />
         <activity
-            android:name=".vista.ListaAlbumes"
-            android:exported="false" />
-        <activity
             android:name=".vista.MainActivity"
             android:exported="true">
             <intent-filter>

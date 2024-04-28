@@ -19,7 +19,6 @@ import com.example.beatbox.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.appcheck.AppCheckToken;
 import com.google.firebase.appcheck.AppCheckTokenResult;
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
@@ -27,7 +26,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Descargas extends AppCompatActivity {
@@ -69,7 +67,7 @@ public class Descargas extends AppCompatActivity {
 
         btnAtras = findViewById(R.id.btnAtras);
         btnDescargar = findViewById(R.id.btnDescargar);
-        listAlbum = findViewById(R.id.listAlbum);
+        listAlbum = findViewById(R.id.listCanciones);
 
         StorageReference ref = storageRef.child("/" + usuario + "/"+ nAlbum + "/");
 

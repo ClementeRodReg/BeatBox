@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.beatbox.R;
-import com.example.beatbox.funcion.Metodos;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -26,13 +26,11 @@ public class MainActivity extends AppCompatActivity {
     Button btnRegistrar, btnLonIn;
     FirebaseFirestore mfirestore;
     FirebaseAuth mAuth;
-    Metodos metodos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        metodos = new Metodos();
         mAuth = FirebaseAuth.getInstance();
         mfirestore = FirebaseFirestore.getInstance();
 
@@ -80,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
                     if (contra.equals(confirmarContra)) {
-                        metodos.carpetaUsuario(correo.split("\\.")[0]);
                         logIn(correo, contra);
                     } else {
                         Toast.makeText(MainActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -147,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         txtContra.setText(contra);
         txtConfirmarContra.setText(confirmarContra);
 
-        editor.commit();
+        editor.apply();
     }
 
     public void cargarDatos() {
