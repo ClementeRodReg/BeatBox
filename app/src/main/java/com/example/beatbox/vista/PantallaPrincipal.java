@@ -3,7 +3,9 @@ package com.example.beatbox.vista;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -68,11 +70,15 @@ public class PantallaPrincipal extends AppCompatActivity {
         btn_Descargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PantallaPrincipal.this, Descargas.class);
+                /*Intent intent = new Intent(PantallaPrincipal.this, Descargas.class);
                 intent.putExtra("usuario", usuario );
                 intent.putExtra("nombre", canciones.get(posicion));
-                intent.putExtra("url", urls.get(posicion));
+                intent.putExtra("url", urls.get(posicion));*/
+                Uri link = Uri.parse(urls.get(posicion));
+                Intent intent = new Intent(Intent.ACTION_VIEW, link);
                 startActivity(intent);
+                Log.d("link", urls.get(posicion));
+                /*startActivity(intent);*/
             }
         });
 
