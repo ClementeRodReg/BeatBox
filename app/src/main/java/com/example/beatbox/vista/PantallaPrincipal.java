@@ -74,11 +74,11 @@ public class PantallaPrincipal extends AppCompatActivity {
                 intent.putExtra("usuario", usuario );
                 intent.putExtra("nombre", canciones.get(posicion));
                 intent.putExtra("url", urls.get(posicion));*/
+                /*startActivity(intent);*/
                 Uri link = Uri.parse(urls.get(posicion));
                 Intent intent = new Intent(Intent.ACTION_VIEW, link);
                 startActivity(intent);
                 Log.d("link", urls.get(posicion));
-                /*startActivity(intent);*/
             }
         });
 
