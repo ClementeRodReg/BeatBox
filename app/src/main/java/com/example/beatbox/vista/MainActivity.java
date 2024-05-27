@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     public void logIn(String correo, String contra) {
         mAuth.signInWithEmailAndPassword(correo, contra).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override

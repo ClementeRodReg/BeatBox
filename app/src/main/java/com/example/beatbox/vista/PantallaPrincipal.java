@@ -34,11 +34,11 @@ public class PantallaPrincipal extends AppCompatActivity {
     private FirebaseFirestore myBBDD;
     private ArrayList<String> canciones;
     private ArrayList<String> urls;
+    Button btnSugerenciasVista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
-
         myBBDD = FirebaseFirestore.getInstance();
         btn_Buscar = findViewById(R.id.btn_Buscar);
         btn_Descargar = findViewById(R.id.botonDescargar);
@@ -47,6 +47,14 @@ public class PantallaPrincipal extends AppCompatActivity {
         listAlbum = findViewById(R.id.listCanciones);
         Bundle bundle =  getIntent().getExtras();
         usuario=bundle.getString("usuario");
+        btnSugerenciasVista = findViewById(R.id.btnSugerenciasVista);
+        btn_Buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PantallaPrincipal.this, Pantalla_sugerencias.class);
+                startActivity(intent);
+            }
+        });
 
         btn_Buscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +84,6 @@ public class PantallaPrincipal extends AppCompatActivity {
                 Log.d("link", urls.get(posicion));
             }
         });
-
-
-
 
     }
 

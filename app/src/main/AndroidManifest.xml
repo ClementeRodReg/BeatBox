@@ -19,6 +19,9 @@
         android:theme="@style/Theme.BeatBox"
         tools:targetApi="31">
         <activity
+            android:name=".vista.Pantalla_sugerencias"
+            android:exported="false" />
+        <activity
             android:name=".vista.PantallaPrincipal"
             android:exported="false" />
         <activity
