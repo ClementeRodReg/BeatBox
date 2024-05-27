@@ -51,7 +51,7 @@ public class Pantalla_sugerencias extends AppCompatActivity {
                 if(campoSugerencia.getText().toString().isEmpty()) {
                     Toast.makeText(Pantalla_sugerencias.this, "Si quieres enviar, tendrás que escribir tu sugerencia.", Toast.LENGTH_SHORT).show();
                 }else{
-                    String pattern = "MM-dd-yyyy HH:mm";
+                    String pattern = "MM-dd-yyyy HH:mm:ss";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     String date = simpleDateFormat.format(new Date());
                     Sugerencia sugerencia = new Sugerencia(campoSugerencia.getText().toString());
