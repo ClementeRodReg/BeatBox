@@ -58,7 +58,7 @@ public class Pantalla_sugerencias extends AppCompatActivity {
                     myBBDD.collection("sugerencias").document(date+" - "+mAuth.getCurrentUser().getDisplayName()).set(sugerencia).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(Pantalla_sugerencias.this, "Si quieres enviar, tendrás que escribir tu sugerencia.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Pantalla_sugerencias.this, "Sugerencia enviada.", Toast.LENGTH_SHORT).show();
                         }
                     });
                     Intent intent = new Intent(Pantalla_sugerencias.this, PantallaPrincipal.class);
