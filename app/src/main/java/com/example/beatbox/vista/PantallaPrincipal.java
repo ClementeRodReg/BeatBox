@@ -48,7 +48,7 @@ public class PantallaPrincipal extends AppCompatActivity {
         Bundle bundle =  getIntent().getExtras();
         usuario=bundle.getString("usuario");
         btnSugerenciasVista = findViewById(R.id.btnSugerenciasVista);
-        btn_Buscar.setOnClickListener(new View.OnClickListener() {
+        btnSugerenciasVista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PantallaPrincipal.this, Pantalla_sugerencias.class);
