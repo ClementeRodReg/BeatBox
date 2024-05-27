@@ -55,7 +55,7 @@ public class Pantalla_sugerencias extends AppCompatActivity {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     String date = simpleDateFormat.format(new Date());
                     Sugerencia sugerencia = new Sugerencia(campoSugerencia.getText().toString());
-                    myBBDD.collection("sugerencias").document(date+" - "+mAuth.getCurrentUser().getDisplayName()).set(sugerencia).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    myBBDD.collection("sugerencias").document(date).set(sugerencia).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(Pantalla_sugerencias.this, "Sugerencia enviada.", Toast.LENGTH_SHORT).show();

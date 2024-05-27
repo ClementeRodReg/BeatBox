@@ -45,8 +45,6 @@ public class PantallaPrincipal extends AppCompatActivity {
         btn_Descargar.setVisibility(View.INVISIBLE);
         txt_buscador = findViewById(R.id.txt_buscador);
         listAlbum = findViewById(R.id.listCanciones);
-        Bundle bundle =  getIntent().getExtras();
-        usuario=bundle.getString("usuario");
         btnSugerenciasVista = findViewById(R.id.btnSugerenciasVista);
         btnSugerenciasVista.setOnClickListener(new View.OnClickListener() {
             @Override
