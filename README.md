@@ -10,17 +10,17 @@ Proyecto de fin de curso
   
   <tr>
     <td>Clemente Rodriguez</td>
-    <td>CEO</td>
+    <td>Desarrollador</td>
   </tr>
   
   <tr>
     <td>Ander de la Iglesia Perex</td>
-    <td>FEO</td>
+    <td>Desarrollador</td>
   </tr>
   
   <tr>
     <td>Andoni Fernández</td>
-    <td>Interno sin paga (Esclavo)</td>
+    <td>Desarrollador</td>
   </tr>
 
 </table>
